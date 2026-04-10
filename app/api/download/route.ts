@@ -97,10 +97,9 @@ export async function GET(request: NextRequest) {
   const pdfBytes = await pdfDoc.save();
   const fileName = `${order.project.templateId}-${order.id}.pdf`;
 
-  return new NextResponse(pdfBytes, {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="${fileName}"`,
-    },
-  });
-}
+  return new NextResponse(new Uint8Array(pngBuffer), {
+  headers: {
+    "Content-Type": "image/png",
+    "Content-Disposition": `attachment; filename="${fileName}"`
+  }
+})
