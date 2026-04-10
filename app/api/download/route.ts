@@ -66,7 +66,9 @@ export async function GET(request: NextRequest) {
       .png({ quality: 100 })
       .toBuffer();
 
-    const pngBytes = new Uint8Array(pngBuffer);
+    const pngBytes =
+      pngBuffer instanceof Uint8Array ? pngBuffer : new Uint8Array(pngBuffer);
+
     const fileName = `${order.project.templateId}-${order.id}.png`;
 
     return new NextResponse(pngBytes, {
