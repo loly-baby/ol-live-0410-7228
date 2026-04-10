@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
   if (format === "svg") {
     const fileName = `${order.project.templateId}-${order.id}.svg`;
 
-    return new NextResponse(svg, {
+    return new NextResponse(new Uint8Array(pngBuffer), {
       headers: {
         "Content-Type": "image/svg+xml; charset=utf-8",
         "Content-Disposition": `attachment; filename="${fileName}"`,
