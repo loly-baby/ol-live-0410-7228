@@ -39,14 +39,15 @@ export async function GET(request: NextRequest) {
   const svg = renderSealSvg({ ...config, watermark: false });
 
   if (format === "svg") {
-    const fileName = `${order.project.templateId}-${order.id}.svg`;
+    const fileName = `${order.project.templateId}-${order.id}.png`;
+const body = pngBuffer instanceof Uint8Array ? pngBuffer : new Uint8Array(pngBuffer);
 
-    return new NextResponse(svg, {
-      headers: {
-        "Content-Type": "image/svg+xml; charset=utf-8",
-        "Content-Disposition": `attachment; filename="${fileName}"`
-      }
-    });
+return new NextResponse(body, {
+  headers: {
+    "Content-Type": "image/png",
+    "Content-Disposition": `attachment; filename="${fileName}"`,
+  },
+});
   }
 
   if (format === "png") {
